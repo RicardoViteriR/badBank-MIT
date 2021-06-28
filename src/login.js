@@ -6,39 +6,39 @@ import React from 'react';
 
 function Login() {
 
-  const ctx = React.useContext(UserContext);
-  const { users } = ctx;
-  const logInCtx = React.useContext(LoggedInContext);
-  let { loggedUserID } = logInCtx;
+  const { userDB } = React.useContext(UserContext);
+  const { userID, changeUserID } = React.useContext(LoggedInContext);
   const [show, setShow] = React.useState();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  // console.log(userDB.users, 'users from login');
 
   React.useEffect(() => {
-    if (loggedUserID === undefined) {
+    if (userID === undefined) {
       setShow(true)
     } else {
       setShow(false)
     }
-  }, [loggedUserID])
+  }, [userID])
 
 
   const handleLogin = () => {
     // look for email
-    // check password
+    // check password (not implemented)
     // change logInCtx to the index where the user is in UserContext
 
     let userIndex = undefined;
 
-    users.forEach((el, index) => {
+    userDB.users.forEach((el, index) => {
       if (el.email === email) {
         userIndex = index;
       }
     });
 
-    logInCtx.loggedUserID = userIndex;
-    if (userIndex !== undefined) setShow(false);
+    changeUserID(userIndex);
+
+    if (userID !== undefined) setShow(false);
 
   }
 
@@ -51,7 +51,7 @@ function Login() {
           <Card.Title>
             <h1>Login</h1>
           </Card.Title>
-          {show ? (
+          {(show) ? (
             <>
               Email address<br />
               <input type="input" className="form-control"

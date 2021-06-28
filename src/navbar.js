@@ -6,27 +6,31 @@ import React from 'react';
 
 
 function NavBar() {
-  let logInCtx = React.useContext(LoggedInContext);
-  console.log(logInCtx.loggedUserID)
-  const ctx = React.useContext(UserContext);
+  const { userDB } = React.useContext(UserContext);
+  const { userID, changeUserID } = React.useContext(LoggedInContext);
+
 
   const [show, setShow] = React.useState();
   const [name, setName] = React.useState();
 
   React.useEffect(() => {
-    if (logInCtx.loggedUserID === undefined) {
+    // console.log(ctx, userID, 'este es mi log de navbar');
+
+    if (userID === undefined) {
+      // console.log(' NAV es verdad');
       setShow(true)
     } else {
+      // console.log('NAV no es verdad');
       setShow(false)
-      setName(ctx.users[logInCtx.loggedUserID].name);
+      console.log(userDB.users);
+      setName(userDB.users[userID].name);
     }
-  }, [logInCtx.loggedUserID, ctx.users])
-
+  }, [userID, userDB.users])
 
 
   const logOut = () => {
     // reset context to undefined
-    logInCtx = { loggedUserID: undefined };
+    changeUserID(undefined);
     setShow(true);
   };
 

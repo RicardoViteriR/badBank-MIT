@@ -1,10 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { UserContext } from './index';
 import { Card, Table } from 'react-bootstrap';
 
 
 function AllData() {
-  const ctx = useContext(UserContext);
+  // const ctx = useContext(UserContext);
+  const { userDB } = React.useContext(UserContext);
+  console.log(userDB);
+
   return (
     <>
       <Card className="text-center">
@@ -26,7 +29,7 @@ function AllData() {
             </thead>
 
             <tbody>
-              {ctx.users.map((users, index) => {
+              {userDB.users.map((users, index) => {
                 return (<tr key={index + 1}>
                   <td>{index + 1}</td>
                   <td>{users.email}</td>

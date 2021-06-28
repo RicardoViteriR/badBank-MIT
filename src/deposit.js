@@ -3,10 +3,8 @@ import { UserContext, LoggedInContext } from './index';
 import React, { useContext } from 'react';
 
 function Deposit() {
-  const ctx = useContext(UserContext)
-  const index = useContext(LoggedInContext);
-  let { loggedUserID } = index;
-  console.log(loggedUserID);
+  const { userDB } = useContext(UserContext)
+  const { userID } = useContext(LoggedInContext);
 
 
   const [currentBalance, setCurrentBalance] = React.useState(0);
@@ -17,8 +15,8 @@ function Deposit() {
 
 
   React.useEffect(() => {
-    if (loggedUserID !== undefined) {
-      let { name, balance } = ctx.users[loggedUserID];
+    if (userID !== undefined) {
+      let { name, balance } = userDB.users[userID];
       setCurrentName(name);
       setCurrentBalance(balance);
       console.log(balance)
@@ -27,7 +25,7 @@ function Deposit() {
       setShow(false);
     }
 
-  }, [ctx.users, loggedUserID])
+  }, [userDB.users, userID])
 
   React.useEffect(() => {
     (depositAmount > 0)
@@ -42,8 +40,8 @@ function Deposit() {
   }
 
   const handleDeposit = () => {
-    let newBalance = depositMoney(depositAmount, loggedUserID);
-    ctx.users[loggedUserID].balance = newBalance;
+    let newBalance = depositMoney(depositAmount, userID);
+    userDB.users[userID].balance = newBalance;
     setCurrentBalance(newBalance);
   };
 

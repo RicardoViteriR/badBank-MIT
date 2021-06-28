@@ -4,9 +4,8 @@ import React, { useContext } from 'react';
 
 
 function Withdraw() {
-  const ctx = useContext(UserContext)
-  const index = useContext(LoggedInContext);
-  let { loggedUserID } = index;
+  const { userDB } = useContext(UserContext)
+  const { userID } = useContext(LoggedInContext);
 
 
   const [currentBalance, setCurrentBalance] = React.useState(0);
@@ -17,15 +16,15 @@ function Withdraw() {
 
 
   React.useEffect(() => {
-    if (loggedUserID !== undefined) {
-      let { name, balance } = ctx.users[loggedUserID];
+    if (userID !== undefined) {
+      let { name, balance } = userDB.users[userID];
       setCurrentName(name);
       setCurrentBalance(balance);
       setShow(true);
     } else {
       setShow(false);
     }
-  }, [ctx.users, loggedUserID])
+  }, [userDB.users, userID])
 
 
   const withdrawMoney = (amount) => {
@@ -35,7 +34,7 @@ function Withdraw() {
 
   const handleWithdraw = () => {
     let newBalance = withdrawMoney(withdrawAmount);
-    ctx.users[loggedUserID].balance = newBalance;
+    userDB.users[userID].balance = newBalance;
     setCurrentBalance(newBalance);
   };
 

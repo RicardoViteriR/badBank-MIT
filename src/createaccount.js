@@ -11,7 +11,9 @@ function CreateAccount() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [disableButton, setDisableButton] = React.useState(true);
-  const ctx = React.useContext(UserContext);
+  const { updateUserDB } = React.useContext(UserContext);
+
+  // console.log(userDB, updateUserDB);
 
   function validate(field, label) {
     if (!field) {
@@ -27,7 +29,9 @@ function CreateAccount() {
     if (!validate(name, 'name')) return;
     if (!validate(email, 'email')) return;
     if (!validate(password, 'password')) return;
-    ctx.users.push({ name, email, password, balance: 100 });
+    // ctx.users.push({ name, email, password, balance: 100 });
+    updateUserDB({ name, email, password, balance: 100 });
+
     setShow(false);
   }
 

@@ -17,10 +17,20 @@ export const LoggedInContext = React.createContext(null);
 
 
 function Spa() {
+  const [userID, setUserID] = React.useState(undefined);
+  const changeUserID = (user) => setUserID(user);
+
+  const [userDB, setUserDB] = React.useState({ users: [{ name: 'abel', email: 'abel@mit.edu', password: 'secret', balance: 100 }, { name: 'ricardo', email: 'ricardo@labviteri.com', password: 'secret', balance: 200 }] });
+  const updateUserDB = (obj) => {
+    const result = { users: [...userDB.users, obj] }
+    setUserDB(result)
+  };
+
   return (
+
     <HashRouter>
-      <LoggedInContext.Provider value={{ loggedUserID: undefined }}>
-        <UserContext.Provider value={{ users: [{ name: 'abel', email: 'abel@mit.edu', password: 'secret', balance: 100 }, { name: 'ricardo', email: 'ricardo@labviteri.com', password: 'secret', balance: 200 }] }}>
+      <LoggedInContext.Provider value={{ userID, changeUserID }}>
+        <UserContext.Provider value={{ userDB, updateUserDB }}>
           <NavBar />
           <div className="container" style={{ padding: "10px" }}>
             <Route path="/" exact component={Home} />
