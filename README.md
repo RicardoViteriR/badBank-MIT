@@ -1,24 +1,24 @@
 # MIT - Front End Application Assignment
 
-Website Functionality
+## Website Functionality
 Your website should include the following functionality. Please review the rubric below for specific information on how each element will be graded.
 
-Navigation Bar
+## Navigation Bar
 Includes Create Account, Deposit, Withdraw, All Data, and Home pages
 Routing: Each navigation bar item routes the user to the relevant page. For example, by selecting Home the user should be directed to the Home page.
 Styled with Bootstrap
-Highlighting: Each navigation bar item is highlight when you are on that page. For example, Home is highlighted when you are on the home page.
+## Highlighting: Each navigation bar item is highlight when you are on that page. For example, Home is highlighted when you are on the home page.
 Hover effect: When your mouse hovers over a navigation bar item, you see a pop up with a description of that page.
-2. Home Page
+### 2. Home Page
 Includes bank title, image, and a welcome message.
 Styled as a Bootstrap card.
-3. Create Account Page
+### 3. Create Account Page
 Includes a Bootstrap card with a form that has:
 Name input field
 Email address input field
 Password input field
 Create account button
-4. Create Account Page Functionality
+### 4. Create Account Page Functionality
 
 Create account page should include the following functionality:
 Success message: Upon selecting the create account button the user should see a success message.
