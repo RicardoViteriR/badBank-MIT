@@ -1,17 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { Route, HashRouter } from 'react-router-dom';
+import NavBar from './navbar';
+import Home from './home';
+import CreateAccount from './createaccount';
+import Login from './login';
+import Deposit from './deposit';
+import Withdraw from './withdraw';
+import Balance from './balance';
+import AllData from './alldata';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+export const UserContext = React.createContext(null);
+export const LoggedInContext = React.createContext(null);
+
+
+function Spa() {
+  return (
+    <HashRouter>
+      <LoggedInContext.Provider value={{ loggedIndex: undefined }}>
+        <UserContext.Provider value={{ users: [{ name: 'abel', email: 'abel@mit.edu', password: 'secret', balance: 100 }, { name: 'ricardo', email: 'ricardo@labviteri.com', password: 'secret', balance: 100 }] }}>
+          <NavBar />
+          <div className="container" style={{ padding: "10px" }}>
+            <Route path="/" exact component={Home} />
+            <Route path="/CreateAccount/" component={CreateAccount} />
+            <Route path="/login/" component={Login} />
+            <Route path="/deposit/" component={Deposit} />
+            <Route path="/withdraw/" component={Withdraw} />
+            <Route path="/balance/" component={Balance} />
+            <Route path="/alldata/" component={AllData} />
+          </div>
+        </UserContext.Provider>
+      </LoggedInContext.Provider>
+    </HashRouter>
+  );
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Spa />,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
