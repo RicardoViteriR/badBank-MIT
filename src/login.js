@@ -7,19 +7,21 @@ import React from 'react';
 function Login() {
 
   const ctx = React.useContext(UserContext);
+  const { users } = ctx;
   const logInCtx = React.useContext(LoggedInContext);
+  let { loggedUserID } = logInCtx;
   const [show, setShow] = React.useState();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
 
   React.useEffect(() => {
-    if (logInCtx.loggedIndex === undefined) {
+    if (loggedUserID === undefined) {
       setShow(true)
     } else {
       setShow(false)
     }
-  }, [logInCtx.loggedIndex])
+  }, [loggedUserID])
 
 
   const handleLogin = () => {
@@ -29,13 +31,13 @@ function Login() {
 
     let userIndex = undefined;
 
-    ctx.users.forEach((el, index) => {
+    users.forEach((el, index) => {
       if (el.email === email) {
         userIndex = index;
       }
     });
 
-    logInCtx.loggedIndex = userIndex;
+    logInCtx.loggedUserID = userIndex;
     if (userIndex !== undefined) setShow(false);
 
   }

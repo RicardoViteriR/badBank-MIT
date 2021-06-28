@@ -10,6 +10,7 @@ function CreateAccount() {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [disableButton, setDisableButton] = React.useState(true);
   const ctx = React.useContext(UserContext);
 
   function validate(field, label) {
@@ -37,6 +38,17 @@ function CreateAccount() {
     setShow(true);
   }
 
+  React.useEffect(() => {
+    (name.length > 0 &&
+      email.length > 0 &&
+      password.length > 0)
+      ?
+      setDisableButton(false)
+      :
+      setDisableButton(true)
+  }, [name, email, password])
+
+
   return (
     <Card bg='primary' text="white" header="Create Account" status={status} className="mb-2 text-center"    >
 
@@ -62,7 +74,9 @@ function CreateAccount() {
               id="password" placeholder="Enter password"
               value={password} onChange={e => setPassword(e.currentTarget.value)} /><br />
 
-            <button type="submit" className="btn btn-light" onClick={handleCreate}>Create Account</button>
+
+            <button type="submit" className="btn btn-light" onClick={handleCreate} disabled={disableButton}>Create Account</button>
+
           </>
         ) : (
           <>
@@ -72,7 +86,7 @@ function CreateAccount() {
         )}
 
       </Card.Body>
-    </Card>
+    </Card >
 
   )
 }

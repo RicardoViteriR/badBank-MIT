@@ -7,30 +7,26 @@ import React from 'react';
 
 function NavBar() {
   let logInCtx = React.useContext(LoggedInContext);
+  console.log(logInCtx.loggedUserID)
   const ctx = React.useContext(UserContext);
 
   const [show, setShow] = React.useState();
   const [name, setName] = React.useState();
 
   React.useEffect(() => {
-    if (logInCtx.loggedIndex === undefined) {
+    if (logInCtx.loggedUserID === undefined) {
       setShow(true)
     } else {
       setShow(false)
+      setName(ctx.users[logInCtx.loggedUserID].name);
     }
-  }, [logInCtx.loggedIndex])
+  }, [logInCtx.loggedUserID, ctx.users])
 
-  React.useEffect(() => {
-    if (logInCtx.loggedIndex !== undefined) {
-      setName(ctx.users[logInCtx.loggedIndex].name);
-
-    }
-  }, [logInCtx.loggedIndex, ctx.users])
 
 
   const logOut = () => {
     // reset context to undefined
-    logInCtx = { loggedIndex: undefined };
+    logInCtx = { loggedUserID: undefined };
     setShow(true);
   };
 
@@ -45,7 +41,6 @@ function NavBar() {
           <Nav className="mr-auto">
             <Nav.Link href="#/deposit/">Deposit</Nav.Link>
             <Nav.Link href="#/withdraw/">Withdraw</Nav.Link>
-            <Nav.Link href="#/balance/">Balance</Nav.Link>
             <Nav.Link href="#/alldata/">AllData</Nav.Link>
             {
               (show) ?

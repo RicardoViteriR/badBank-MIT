@@ -21,16 +21,18 @@ function AllData() {
                 <th>Email</th>
                 <th>Name</th>
                 <th>Password</th>
+                <th>Balance</th>
               </tr>
             </thead>
 
             <tbody>
               {ctx.users.map((users, index) => {
-                return (<tr>
+                return (<tr key={index + 1}>
                   <td>{index + 1}</td>
                   <td>{users.email}</td>
                   <td>{users.name}</td>
                   <td>{users.password}</td>
+                  <td>{users.balance}</td>
                 </tr>)
               })}
             </tbody>
