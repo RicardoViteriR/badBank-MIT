@@ -12,8 +12,8 @@ function CreateAccount() {
   const [password, setPassword] = React.useState('');
   const [disableButton, setDisableButton] = React.useState(true);
   const { updateUserDB } = React.useContext(UserContext);
+  const [passwordOk, setPasswordOk] = React.useState(false);
 
-  // console.log(userDB, updateUserDB);
 
   function validate(field, label) {
     if (!field) {
@@ -52,6 +52,10 @@ function CreateAccount() {
       setDisableButton(true)
   }, [name, email, password])
 
+  React.useEffect(() => {
+    (password.length >= 8) ? setPasswordOk(true) : setPasswordOk(false);
+  }, [password])
+
 
   return (
     <Card bg='primary' text="white" header="Create Account" status={status} className="mb-2 text-center"    >
@@ -76,7 +80,10 @@ function CreateAccount() {
             Password<br />
             <input type="password" className="form-control"
               id="password" placeholder="Enter password"
-              value={password} onChange={e => setPassword(e.currentTarget.value)} /><br />
+              value={password} onChange={e => setPassword(e.currentTarget.value)} />
+            {(passwordOk) ? '' : 'Password length does not meet minium requirements'}
+            <br />
+            <br />
 
 
             <button type="submit" className="btn btn-light" onClick={handleCreate} disabled={disableButton}>Create Account</button>

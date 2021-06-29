@@ -19,7 +19,6 @@ function Deposit() {
       let { name, balance } = userDB.users[userID];
       setCurrentName(name);
       setCurrentBalance(balance);
-      console.log(balance)
       setShow(true);
     } else {
       setShow(false);
@@ -36,7 +35,8 @@ function Deposit() {
   }, [depositAmount])
 
   const depositMoney = (amount, userID) => {
-    return (currentBalance + Number(amount));
+    const result = Math.round((currentBalance + Number(amount)) * 100) / 100;
+    return result;
   }
 
   const handleDeposit = () => {

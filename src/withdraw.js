@@ -28,7 +28,8 @@ function Withdraw() {
 
 
   const withdrawMoney = (amount) => {
-    if (currentBalance >= amount) return (currentBalance - Number(amount));
+    if (currentBalance >= amount) return Math.round((currentBalance - Number(amount)) * 100) / 100;
+
     return currentBalance;
   }
 

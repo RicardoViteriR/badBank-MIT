@@ -4,9 +4,7 @@ import { Card, Table } from 'react-bootstrap';
 
 
 function AllData() {
-  // const ctx = useContext(UserContext);
   const { userDB } = React.useContext(UserContext);
-  console.log(userDB);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { UserContext, LoggedInContext } from './index';
 import React from 'react';
 
@@ -43,23 +43,70 @@ function NavBar() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Nav className="mr-auto">
-            <Nav.Link href="#/deposit/">Deposit</Nav.Link>
-            <Nav.Link href="#/withdraw/">Withdraw</Nav.Link>
-            <Nav.Link href="#/alldata/">AllData</Nav.Link>
+            <OverlayTrigger key={'deposit'} placement={'bottom'} overlay={
+              <Tooltip id={`tooltip-${'bottom'}`}>
+                Deposit some money!
+              </Tooltip>
+            }
+            >
+              <Nav.Link href="?#/deposit/">Deposit</Nav.Link>
+            </OverlayTrigger>
+
+            <OverlayTrigger key={'withdraw'} placement={'bottom'} overlay={
+              <Tooltip id={`tooltip-${'bottom'}`}>
+                Get some money!
+              </Tooltip>
+            }
+            >
+              <Nav.Link href="?#/withdraw/">Withdraw</Nav.Link>
+            </OverlayTrigger>
+
+            <OverlayTrigger key={'allData'} placement={'bottom'} overlay={
+              <Tooltip id={`tooltip-${'bottom'}`}>
+                See all user's data!
+              </Tooltip>
+            }
+            >
+              <Nav.Link href="?#/alldata/">AllData</Nav.Link>
+            </OverlayTrigger>
             {
               (show) ?
                 (
                   <>
-                    <Nav.Link href="#/login/">Login</Nav.Link>
-                    <Nav.Link href="#/CreateAccount/">Create Account</Nav.Link>
+                    <OverlayTrigger key={'login'} placement={'bottom'} overlay={
+                      <Tooltip id={`tooltip-${'bottom'}`}>
+                        Log in to make transactions!
+                      </Tooltip>
+                    }
+                    >
+                      <Nav.Link href="?#/login/">Login</Nav.Link>
+                    </OverlayTrigger>
+
+                    <OverlayTrigger key={'createAccount'} placement={'bottom'} overlay={
+                      <Tooltip id={`tooltip-${'bottom'}`}>
+                        Create an account!
+                      </Tooltip>
+                    }
+                    >
+                      <Nav.Link href="?#/CreateAccount/">Create Account</Nav.Link>
+                    </OverlayTrigger>
                   </>
                 ) :
                 (
                   <>
                     <Navbar.Text>
-                      Signed in as: <a href="#/login">{name}</a>
+                      Signed in as: <a href="?#/login">{name}</a>
                     </Navbar.Text>
-                    <Nav.Link href="#/" onClick={logOut}>Logout</Nav.Link>
+
+
+                    <OverlayTrigger key={'logout'} placement={'bottom'} overlay={
+                      <Tooltip id={`tooltip-${'bottom'}`}>
+                        Good bye!
+                      </Tooltip>
+                    }
+                    >
+                      <Nav.Link href="#/" onClick={logOut}>Logout</Nav.Link>
+                    </OverlayTrigger>
                   </>
                 )
 
