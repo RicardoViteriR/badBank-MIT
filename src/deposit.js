@@ -12,6 +12,7 @@ function Deposit() {
   const [depositAmount, setDepositAmount] = React.useState('');
   const [show, setShow] = React.useState(false);
   const [disabledButton, setDisableButton] = React.useState()
+  const [showMessage, setShowMessage] = React.useState(false);
 
 
   React.useEffect(() => {
@@ -36,6 +37,12 @@ function Deposit() {
 
   const depositMoney = (amount, userID) => {
     const result = Math.round((currentBalance + Number(amount)) * 100) / 100;
+
+    setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false)
+    }, 2000);
+
     return result;
   }
 
@@ -77,6 +84,10 @@ function Deposit() {
               <Button variant="primary" type="submit" onClick={handleDeposit} disabled={disabledButton}>
                 Deposit
               </Button>
+              <br />
+              {(showMessage) ? 'Thank you for your deposit' : ''}
+
+
             </Form>
             ) :
             (<>Please Log In to continue</>)

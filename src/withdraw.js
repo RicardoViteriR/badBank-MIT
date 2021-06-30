@@ -13,6 +13,8 @@ function Withdraw() {
   const [withdrawAmount, setWithdrawAmount] = React.useState('');
   const [disableButton, setDisableButton] = React.useState(true);
   const [show, setShow] = React.useState(false);
+  const [showError, setShowError] = React.useState(false);
+
 
 
   React.useEffect(() => {
@@ -29,6 +31,11 @@ function Withdraw() {
 
   const withdrawMoney = (amount) => {
     if (currentBalance >= amount) return Math.round((currentBalance - Number(amount)) * 100) / 100;
+
+    setShowError(true);
+    setTimeout(() => {
+      setShowError(false)
+    }, 2000);
 
     return currentBalance;
   }
@@ -78,10 +85,12 @@ function Withdraw() {
                   </Form.Label>
                   <Col sm="10">
                     <Form.Control type="input" placeholder="Enter value" onChange={e => setWithdrawAmount(e.currentTarget.value)} />
+                    <br />
                   </Col>
                 </Form.Group>
-                <br />
                 <Button variant="primary" type="submit" onClick={handleWithdraw} disabled={disableButton}>Withdraw</Button>
+                <br />
+                {(showError) ? 'Not enough money to complete this transaction!' : ''}
               </Form>
             ) :
             (<>Please log in to continue</>)

@@ -11,8 +11,9 @@ function Login() {
   const [show, setShow] = React.useState();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [showError, setShowError] = React.useState(false);
 
-  // console.log(userDB.users, 'users from login');
+
 
   React.useEffect(() => {
     if (userID === undefined) {
@@ -23,16 +24,24 @@ function Login() {
   }, [userID])
 
 
+
+
   const handleLogin = () => {
     // look for email
-    // check password (not implemented)
-    // change logInCtx to the index where the user is in UserContext
+    // check password
+    // changeUserID to the index where the user is in UserContext.users
 
     let userIndex = undefined;
 
     userDB.users.forEach((el, index) => {
-      if (el.email === email) {
+      if (el.email === email && el.password === password) {
         userIndex = index;
+      } else {
+
+        setShowError(true);
+        setTimeout(() => {
+          setShowError(false)
+        }, 2000);
       }
     });
 
@@ -41,6 +50,7 @@ function Login() {
     if (userID !== undefined) setShow(false);
 
   }
+
 
 
 
@@ -66,6 +76,9 @@ function Login() {
               <br />
 
               <button type="submit" className="btn btn-light" onClick={handleLogin}>Log In</button>
+              <br />
+              {(showError) ? 'Please check email or password' : ''}
+
             </>
           ) : (
             <>
